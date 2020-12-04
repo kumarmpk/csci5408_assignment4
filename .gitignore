@@ -1,0 +1,8 @@
+*.csv
+__pycache__/
+section1/*.csv
+semantic/*.csv
+sentiment/*.csv
+section1/__pycache__/
+semantic/__pycache__/
+sentiment/__pycache__/
