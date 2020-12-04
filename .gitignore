@@ -6,3 +6,4 @@ sentiment/*.csv
 section1/__pycache__/
 semantic/__pycache__/
 sentiment/__pycache__/
+*.xlsx
