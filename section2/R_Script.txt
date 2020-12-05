@@ -1,6 +1,8 @@
 library(ggplot2)
-df <- (read.csv(file="C:/Users/prath/MPK/studies/Term3/CSCI-5408-Data/Assignment/4/Code/R_CSV.csv",header = TRUE))
+df <- (read.csv(file="C:/Users/prath/MPK/studies/Term3/CSCI-5408-Data/Assignment/4/csv/R_CSV.csv",header = TRUE))
 a <- kmeans(as.matrix(df),8)
+a$centers
+a$cluster
 df_new1 <- data.frame(v1=df, cluster=factor(a$cluster))
 nrow(df_new1[df_new1$cluster == 8,] )
 ggplot(df_new1,aes(x=1:nrow(df_new1), y=created_at, color=cluster, 
@@ -18,7 +20,8 @@ df_new <- df %>%
   mutate(year = year(my_time_new1),
          month = month(my_time_new1))
 
-a <- kmeans(as.matrix(df_new),8)
+a <- kmeans(as.matrix(df_new),3)
+a$centers
 df_new2 <- data.frame(v1=df_new, cluster=factor(a$cluster))
 nrow(df_new2[df_new2$cluster == 8,] )
 ggplot(df_new2,aes(x=v1.year, y=v1.month, color=cluster, 

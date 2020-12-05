@@ -10,7 +10,6 @@ import csv
 client = MongoClient(
     'mongodb+srv://user:5408pass3@data-assignment3.xtllw.mongodb.net/ProcessDb?retryWrites=true&w=majority')
 processed_database = client.get_database('ProcessedDb')
-dot_exp = re.compile(r'\.|\,|\&|\;|\<|\>|\(|\)|\[|\]|\:')
 search_keyword_list = ["Storm", "Winter", "Canada",
                        "Temperature", "Flu", "Snow", "Indoor", "Safety"]
 tweet_text_list = []
@@ -24,20 +23,14 @@ for keyword_word in search_keyword_list:
 
     for tweet in processed_data_list:
         if 'text' in tweet:
-            text = tweet['text']
-            text = dot_exp.sub(r'', text)
-            processed_tweet = re.sub(r"http\S+", "", text)
-            if processed_tweet not in tweet_text_list:
-                tweet_text_list.append(processed_tweet)
+            tweet_text_list.append(tweet['text'])
 
 tweet_text_list = tweet_text_list[:2000]
-print(len(tweet_text_list))
 record_counter = 0
 csv_record_list = []
 
 
 def createBOW(text):
-    text = dot_exp.sub(r'', text)
     words = text.split()
     outDict = {}
     for word in words:
@@ -87,7 +80,6 @@ for tweet in tweet_text_list:
     csv_record['Matched_Negative_Words'] = matched_negative_word_list
     csv_record['Polarity'] = polarity
     csv_record_list.append(csv_record)
-    # break
 
 headers = csv_record_list[0].keys()
 with open('sentiment_analysis.csv', 'w', newline='') as output_file:

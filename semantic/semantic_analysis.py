@@ -9,7 +9,6 @@ import csv
 client = MongoClient(
     'mongodb+srv://user:5408pass3@data-assignment3.xtllw.mongodb.net/ReuterDb?retryWrites=true&w=majority')
 reuter_database = client.get_database('ReuterDb')
-regular_expression = re.compile(r'https\S+|([^a-zA-Z\s]+?)')
 dot_exp = re.compile(r'\.|\,|\&|\;|\<|\>')
 news_list = []
 
@@ -21,15 +20,6 @@ search_keyword_list = ['Canada', 'rain', 'cold', 'hot']
 table1_counters = []
 total_documents = len(news_list)
 csv_table1 = []
-
-for news in news_list:
-    news_str = str(news['body'])
-    news_str = dot_exp.sub(r'', news_str)
-    news_str = regular_expression.sub(r'', news_str)
-    news_str = news_str.replace('reuter', '')
-    news_str = news_str.replace('Reuter', '')
-    news_str = news_str.replace('REUTER', '')
-    news['body'] = news_str
 
 for keyword in search_keyword_list:
     counter_table1 = 0
